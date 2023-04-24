@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+}
+
+.mainBackground {
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(106, 8, 76) 0%, rgb(23, 1, 59) 100.2%);
+}
+
+#option-hide {
+    display: none;
+    visibility: hidden;
+}
+
