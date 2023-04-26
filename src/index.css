@@ -15,3 +15,21 @@
     visibility: hidden;
 }
 
+.stick-css li {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background-color: rgb(212, 212, 212);
+}
+
+li.slick-active {
+    background-color: #e00d7a;
+}
+
+#slider-promotion .slick-arrow.slick-prev {
+    display: none !important;
+}
+
+#slider-promotion .slick-arrow.slick-next  {
+    display: none !important;
+}

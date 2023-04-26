@@ -4,8 +4,10 @@ import MenuUser from "../../components/MenuUser";
 import Banner from "../../components/Banner";
 import OrderTicketOnline from "../../components/OrderTicketOnline";
 import ToasterProvider from "../../providers/ToasterProvider";
-import TestComponent from "../../components/TestComponent";
 import Movies from "../../components/Movies";
+import Promotion from "../../components/Promotion";
+import News from "../../components/News";
+import Footer from "../../components/Footer";
 
 const HomePage = () => {
   return (
@@ -16,7 +18,9 @@ const HomePage = () => {
       <Banner />
       <OrderTicketOnline />
       <Movies />
-      <TestComponent />
+      <Promotion />
+      <News />
+      <Footer />
     </div>
   );
 };
