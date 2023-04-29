@@ -1,17 +1,21 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/Home";
-import MoviePage from "../pages/Movies";
+import MainLayout from "../layouts/MainLayout";
+
+const HomePage = React.lazy(() => import("../pages/Home"));
+const MoviePage = React.lazy(() => import("../pages/Movies"));
+const ShowTimesPage = React.lazy(() => import("../pages/ShowTimes"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
-    children: [{ path: "/movies", element: <MoviePage /> }],
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "/phimdangchieu", element: <MoviePage /> },
+      { path: "/lichchieu", element: <ShowTimesPage /> },
+    ],
   },
-  // {
-  //   path: "/movies",
-  //   element: <MoviePage />,
-  // },
 ]);
 
 export default router;

@@ -8,19 +8,14 @@ import Movies from "../../components/Movies";
 import Promotion from "../../components/Promotion";
 import News from "../../components/News";
 import Footer from "../../components/Footer";
+import { Outlet } from "react-router-dom";
 
 const HomePage = () => {
   return (
     <div className="mainBackground">
-      <ToasterProvider />
-      <Header />
-      <MenuUser />
-      <Banner />
-      <OrderTicketOnline />
       <Movies />
       <Promotion />
       <News />
-      <Footer />
     </div>
   );
 };

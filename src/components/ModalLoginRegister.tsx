@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 interface ModalLoginRegisterProps {
   statusModal?: number;
+  onClose: () => void;
 }
 
 interface IFormInputs {
@@ -22,6 +23,7 @@ const STATUS_REGISTER = 2;
 
 const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   statusModal,
+  onClose,
 }) => {
   const [gender, setGender] = useState("male");
   const [statusFindPassword, setStatusFindPassword] = useState<boolean>(false);
@@ -265,6 +267,12 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
           </div>
         </div>
       )}
+      <div
+        onClick={onClose}
+        className="absolute top-2 right-5 text-mainColor text-3xl cursor-pointer"
+      >
+        x
+      </div>
     </div>
   );
 };

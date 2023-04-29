@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HomeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { menuHeader } from "../constants";
 import HomeSearch from "./HomeSearch";
@@ -8,18 +8,52 @@ import Logo from "../assets/images/logo.png";
 import IconMenuButton from "./IconMenuButton";
 
 const Header = () => {
+  const path = useLocation();
   const [openMenuMobile, setOpenMenuMobile] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 80) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="mainBackground py-4 lg:py-2 relative">
+    <div
+      className={`   ${
+        scrolled
+          ? "fixed top-0 w-full z-50 py-4 lg:py-1 duration-500 bg-black/50 h-20 lg:h-24"
+          : "py-4 lg:py-2 relative  duration-500 mainBackground h-24 lg:h-32"
+      }`}
+    >
       <div className="flex items-center justify-between px-3 lg:w-[90%] lg:mx-auto">
         <div>
-          <img src={Logo} className="h-14 lg:h-24" alt="Logo" />
+          <img
+            src={Logo}
+            className={` ${
+              scrolled
+                ? "h-14 mx-auto lg:h-24 lg:scale-50 duration-500"
+                : "h-14 lg:h-24 lg:scale-100 duration-500"
+            }`}
+            alt="Logo"
+          />
         </div>
 
         {/* PC && Laptop */}
         <div className="hidden lg:flex flex-col gap-3 mr-0 items-end">
-          <div className="w-[30%] ">
+          <div
+            className={`${
+              scrolled ? "hidden duration-500" : "w-[30%] duration-500"
+            }`}
+          >
             <HomeSearch />
           </div>
           <div className="flex gap-4">
@@ -35,9 +69,11 @@ const Header = () => {
             <div className="flex items-center border border-mainColor rounded-full">
               {menuHeader.map((item, index) => (
                 <Link
-                  className={`text-lg text-stone-50 uppercase px-4 py-2 bg-mainColor ${
-                    index === 0 && "rounded-l-full pl-6 ml-1"
-                  } ${
+                  className={`text-lg text-stone-50 uppercase px-4 py-2 ${
+                    path.pathname === item.path
+                      ? "bg-secondColor"
+                      : "bg-mainColor"
+                  } ${index === 0 && "rounded-l-full pl-6 ml-1"} ${
                     index === menuHeader.length - 1 &&
                     "rounded-r-full pr-6 mr-1"
                   } hover:bg-secondColor duration-200 font-semibold my-1`}

@@ -8,7 +8,7 @@ import bgfooter from "../assets/images/bg-footer.jpg";
 
 const Footer = () => {
   return (
-    <div className="py-6 relative h-[650px] mt-10">
+    <div className="py-6 relative h-[650px]">
       <div className="absolute z-10 top-0">
         <img className="pb-10" src={line} alt="" />
         <div>

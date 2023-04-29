@@ -10,126 +10,13 @@ const OrderTicketOnline = () => {
   const [selectedCine, setSelectedCine] = useState<string>();
 
   return (
-    <div className="relative h-44 lg:h-32">
-      {/* <div className="z-10 absolute flex left-44 right-44 top-0 bottom-0">
-        <div className="grid grid-cols-10 w-full items-center gap-20">
-        
-
-          <div className="grid grid-cols-2 col-span-6 gap-3 w-[90%]">
-            <div className="flex  bg-black/70 text-stone-100  rounded-r-full rounded-bl-full items-center cursor-pointer hover:bg-mainColor duration-200">
-              <select
-                className="w-full bg-transparent py-3  mr-2 ml-4 uppercase font-semibold "
-                name=""
-                id="movie"
-                onChange={(e) => setSelectedMovie(e.target.value)}
-              >
-                <option value="hide" id="option-hide">
-                  Chọn phim
-                </option>
-                {optionMovie.map((item, index) => (
-                  <option
-                    key={index}
-                    value={item.value}
-                    className="uppercase text-black font-semibold border"
-                  >
-                    {item.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex bg-black/70 text-stone-100  rounded-l-full rounded-br-full items-center cursor-pointer hover:bg-mainColor duration-200">
-              <select
-                className="w-full bg-transparent py-3  mr-2 ml-4 uppercase font-semibold"
-                name=""
-                id="movie"
-              >
-                <option value="hide" id="option-hide">
-                  Chọn rạp
-                </option>
-                {selectedMovie ? (
-                  <>
-                    {optionMovie.map((item, index) => (
-                      <option
-                        key={index}
-                        value={item.value}
-                        className="uppercase text-black font-semibold"
-                      >
-                        {item.title}
-                      </option>
-                    ))}
-                  </>
-                ) : (
-                  <option className="uppercase text-black mt-2">
-                    Vui lòng chọn phim
-                  </option>
-                )}
-              </select>
-            </div>
-            <div className="flex bg-black/70 text-stone-100  rounded-r-full rounded-tl-full items-center cursor-pointer hover:bg-mainColor duration-200">
-              <select
-                className="w-full bg-transparent py-3  mr-2 ml-4 uppercase font-semibold"
-                name=""
-                id="movie"
-              >
-                <option value="hide" id="option-hide">
-                  Chọn ngày
-                </option>
-                {selectedMovie ? (
-                  <>
-                    {optionMovie.map((item, index) => (
-                      <option
-                        key={index}
-                        value={item.value}
-                        className="uppercase text-black font-semibold"
-                      >
-                        {item.title}
-                      </option>
-                    ))}
-                  </>
-                ) : (
-                  <option className="uppercase text-black mt-2">
-                    Vui lòng chọn phim và rạp
-                  </option>
-                )}
-              </select>
-            </div>
-            <div className="flex justify-between bg-black/70 text-stone-100  rounded-l-full rounded-tr-full items-center cursor-pointer hover:bg-mainColor duration-200">
-              <select
-                className="w-full bg-transparent py-3  mr-2 ml-4 uppercase font-semibold"
-                name=""
-                id="movie"
-              >
-                <option value="hide" id="option-hide">
-                  Chọn suất chiếu
-                </option>
-                {selectedMovie ? (
-                  <>
-                    {optionMovie.map((item, index) => (
-                      <option
-                        key={index}
-                        value={item.value}
-                        className="uppercase text-black font-semibold"
-                      >
-                        {item.title}
-                      </option>
-                    ))}
-                  </>
-                ) : (
-                  <option className="uppercase text-black mt-2">
-                    Vui lòng chọn phim và rạp
-                  </option>
-                )}
-              </select>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      <div className="absolute top-0 bottom-0 left-0 lg:left-72 right-0 lg:right-72 z-10 flex flex-col lg:flex-row justify-center lg:justify-between items-center">
+    <div className="relative h-44 lg:h-32" style={{ zIndex: "1" }}>
+      <div className="absolute top-0 bottom-0 left-0 z-10 lg:left-72 right-0 lg:right-72 flex flex-col lg:flex-row justify-center lg:justify-between items-center">
         <div className="relative text-center">
           <img
             src={Icon}
             alt="alt"
-            className="absolute -top-11 -left-24 hidden lg:inline z-20"
+            className="absolute -top-11 -left-24 hidden lg:inline"
           />
           <p
             className="text-2xl lg:text-4xl uppercase font-bold text-mainColor lg:w-36 lg:ml-14"

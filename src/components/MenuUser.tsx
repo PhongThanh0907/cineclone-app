@@ -19,6 +19,10 @@ const MenuUser = () => {
     }
   };
 
+  const onCloseModal = () => {
+    setStatusModal(undefined);
+  };
+
   return (
     <div className="relative h-28 lg:h-16">
       {/* Mobile */}
@@ -43,8 +47,11 @@ const MenuUser = () => {
             </h4>
           </div>
           {statusModal && (
-            <div className="absolute top-12 lg:top-16 z-20 -left-8 -right-8">
-              <ModalLoginRegister statusModal={statusModal} />
+            <div className="absolute top-12 lg:top-16 -left-8 -right-8">
+              <ModalLoginRegister
+                statusModal={statusModal}
+                onClose={onCloseModal}
+              />
             </div>
           )}
         </div>

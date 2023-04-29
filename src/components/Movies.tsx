@@ -66,7 +66,7 @@ const Movies = () => {
   ];
 
   return (
-    <div className="text-white">
+    <div id="movies" className="text-white">
       <div className="flex items-center gap-6 lg:gap-10 justify-center py-8">
         <img className="h-28 lg:h-32" src={DOLBY} alt="dolby" />
         <img className="h-16 lg:h-28" src={img2d} alt="img2d" />

@@ -1,6 +1,6 @@
 export const menuHeader = [
-  { title: "Phim", path: "/" },
-  { title: "Lịch Chiếu", path: "/" },
+  { title: "Phim", path: "/phimdangchieu" },
+  { title: "Lịch Chiếu", path: "/lichchieu" },
   { title: "Rạp và giá", path: "/" },
   { title: "Khuyến mãi", path: "/" },
   { title: "Hỏi và đáp", path: "/" },

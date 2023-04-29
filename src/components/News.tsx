@@ -21,7 +21,7 @@ const News = () => {
       </div>
       <div className="flex flex-col gap-2 lg:col-span-8 lg:grid lg:grid-cols-2">
         {listNews.map((item, index) => (
-          <ItemNew index={index} />
+          <ItemNew key={index} index={index} />
         ))}
       </div>
     </div>

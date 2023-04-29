@@ -68,9 +68,12 @@ const Banner = () => {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-4 right-24 border p-2 rounded-full hover:bg-black hover:opacity-60 duration-200 hidden lg:inline">
+      <a
+        href="#movies"
+        className="absolute bottom-4 right-24 border p-2 rounded-full hover:bg-black hover:opacity-60 duration-200 hidden lg:inline"
+      >
         <ChevronDownIcon className="h-10 w-10 text-stone-100 opacity-80 cursor-pointer" />
-      </div>
+      </a>
     </div>
   );
 };

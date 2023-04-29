@@ -4,6 +4,7 @@
 
 * {
     margin: 0;
+    scroll-behavior: smooth;
 }
 
 .mainBackground {
@@ -16,8 +17,8 @@
 }
 
 .stick-css li {
-    height: 10px;
-    width: 10px;
+    height: 10px !important;
+    width: 10px !important;
     border-radius: 100%;
     background-color: rgb(212, 212, 212);
 }
