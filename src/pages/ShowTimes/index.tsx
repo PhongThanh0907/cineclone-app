@@ -80,12 +80,12 @@ const ShowTimesPage = () => {
   return (
     <div className="mainBackground pt-8 pb-10 text-stone-100">
       <h4 className="uppercase font-bold text-2xl text-center">Hệ thống rạp</h4>
-      <div className="flex flex-col w-[60%] mx-auto gap-4 py-5">
+      <div className="flex flex-col w-[60%] mx-auto gap-2 py-5">
         <SelectComponent
           listOption={listProps}
           valueSelected={selectedCine}
           height={40}
-          className="py-1.5 px-4 rounded-r-full rounded-bl-full"
+          className="py-2 pl-5 px-4 rounded-r-full rounded-bl-full bg-black border-2 border-[#683661]"
           classNameSelectOption=" -left-10 -right-10"
         />
 
@@ -93,7 +93,7 @@ const ShowTimesPage = () => {
           listOption={listProps2}
           valueSelected={selectedCine}
           height={85}
-          className="py-1.5 px-4 rounded-r-full rounded-bl-full"
+          className="py-2 pl-5 px-4 rounded-r-full rounded-bl-full bg-black border-2 border-[#683661]"
           classNameSelectOption=" -left-10 -right-10"
         />
       </div>

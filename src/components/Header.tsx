@@ -135,6 +135,7 @@ const Header = () => {
                   className={`py-2 border-y border-[#44003a]/30 w-full text-center`}
                   to={item.path}
                   key={index}
+                  onClick={() => setOpenMenuMobile(false)}
                 >
                   {item.title}
                 </Link>

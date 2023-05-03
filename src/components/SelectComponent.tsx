@@ -34,6 +34,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
         e.stopPropagation();
         handleOpenModal();
       }}
+      onMouseLeave={() => setOpenModal(false)}
       className={`cursor-pointer relative text-stone-100 flex justify-between ${className} border items-center`}
     >
       {value}

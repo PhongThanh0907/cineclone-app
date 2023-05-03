@@ -1,24 +1,11 @@
-import React, { useState } from "react";
-import ItemMovie from "./ItemMovie";
-import HeaderTitleMovie from "../../components/HeaderTitleMovie";
+import { useState } from "react";
 
-const MoviePage = () => {
+const HeaderTitleMovie = () => {
   const [statusListFilm, setStatusListFilm] = useState(1);
-  const [bgColor, setBgColor] = useState("");
-
-  const listFilm = [
-    " bg-[#f18720]",
-    " bg-[#ba3469]",
-    " bg-[#7c2665]",
-    " bg-[#ba3469]",
-    " bg-[#f18720]",
-  ];
-
-  const listColor = ["#f18720", "#aa41a0", "#7c2665", "#ba3469"];
 
   return (
-    <div className="py-10 mainBackground">
-      {/* <div className="flex uppercase text-xs lg:text-2xl  w-[92%] lg:w-[65%] mx-auto justify-between relative text-stone-100">
+    <div>
+      <div className="flex uppercase text-xs lg:text-2xl  w-[92%] lg:w-[65%] mx-auto justify-between relative text-stone-100">
         <div
           onClick={() => setStatusListFilm(1)}
           className={` ${
@@ -57,16 +44,9 @@ const MoviePage = () => {
         >
           Suất chiếu đặc biệt
         </div>
-      </div> */}
-      <HeaderTitleMovie />
-
-      <div className="px-4 mt-14 lg:mt-28 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:w-[85%] lg:mx-auto">
-        {listFilm.map((item, index) => (
-          <ItemMovie key={index} bgColor={item} />
-        ))}
       </div>
     </div>
   );
 };
 
-export default MoviePage;
+export default HeaderTitleMovie;
