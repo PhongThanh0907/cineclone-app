@@ -5,9 +5,16 @@ import Line from "../../assets/images/line-bg.png";
 import couple from "../../assets/images/couple-chair.png";
 import single from "../../assets/images/single-chair.png";
 import ItemSeat from "./ItemSeat";
+import Seat from "./Seat";
 
 const Booking = () => {
   const [count, setCount] = useState<number>(1);
+
+  const seatWidth = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+  ];
+  const seatHeight = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L"];
+
   const decrease = useCallback(() => {
     if (count >= 1) {
       console.log("1");
@@ -23,8 +30,8 @@ const Booking = () => {
     <div className="bg-gray-200 h-100vh overflow-y-auto">
       <Header />
       <img src={Line} alt="line" className="h-0.5" />
-      <div className="mainBackground text-stone-100 py-6 relative ">
-        <div className="flex gap-2 w-[90%] mx-auto">
+      <div className="mainBackground text-stone-100 py-6 relative lg:hidden">
+        <div className="flex gap-2 w-[90%] mx-auto my-4">
           <span className="w-20">Tên phim:</span>
           <h1 className="uppercase font-semibold">
             Lật mặt 6 (C16): Tấm vé định mệnh
@@ -56,8 +63,47 @@ const Booking = () => {
           <p className="font-bold">05.00</p>
         </div>
       </div>
+      <div className="hidden lg:flex lg:flex-col mainBackground">
+        <div className="w-[60%] mx-auto text-stone-100 py-2">
+          <span className="uppercase font-semibold">Tên phim</span>
+          <h1 className="text-3xl font-bold">
+            LẬT MẶT 6 (C16): TẤM VÉ ĐỊNH MỆNH
+          </h1>
+          <div className="grid grid-cols-10">
+            <div className="col-span-7">
+              <div className="grid grid-cols-12 mt-2">
+                <div className="col-span-2 bg-secondColor border-r border-black p-2">
+                  <p className="text-sm">Chọn suất chiếu</p>
+                  <span className="font-bold ">14:00</span>
+                </div>
+                <div className="col-span-4 bg-secondColor border-r border-black p-2">
+                  <p>Ngày</p>
+                  <span className="font-bold text-2xl">04-05-2023</span>
+                </div>
+                <div className="col-span-2 bg-mainColor border-r border-black p-2">
+                  <p>Số lượng</p>
+                  <span className="font-bold text-2xl">0 vé</span>
+                </div>
+                <div className="col-span-4 bg-mainColor p-2">
+                  <p>Tổng số tiền</p>
+                  <span className="font-bold text-2xl">0đ</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-10 py-6 bg-black/60 gap-4">
+                <div className="col-span-2 text-center">Số ghế</div>
+                <div className="col-span-8"></div>
+              </div>
+            </div>
+            <div className="col-span-3 flex flex-col justify-center items-center">
+              <p className="text-xl">Thời gian giữ ghế</p>
+              <span className="text-4xl font-bold">05:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <img src={Line} alt="line" className="h-0.5" />
-      <div className="bg-gray-200">
+
+      <div className="bg-gray-200 hidden">
         <div className="w-[90%] mx-auto bg-stone-100 mt-2">
           <div className="border-t border-b border-gray-200 text-center">
             <div className="flex border-t border-b border-gray-200">
@@ -111,34 +157,156 @@ const Booking = () => {
           </div>
         </div>
       </div>
+
+      <div
+        className="w-[90%] lg:w-[60%] mx-auto text-stone-100 mt-4 mb-10"
+        style={{ boxShadow: "rgb(0 0 0 / 13%) 9px 10px 0px" }}
+      >
+        <div className="hidden lg:grid grid-cols-4  bg-white">
+          <div>
+            <h4 className="bg-secondColor font-bold uppercase text-xl text-center py-2">
+              Loại vé
+            </h4>
+            <div className="flex flex-col text-black text-2xl ml-4 gap-5 py-2">
+              <span>Người Lớn (Đôi)</span>
+              <span>Người Lớn (Đơn)</span>
+            </div>
+          </div>
+          <div className="border-l border-r border-gray-400">
+            <h4 className="bg-secondColor font-bold uppercase text-xl text-center py-2">
+              Số lượng
+            </h4>
+            <div className="flex flex-col text-2xl gap-2 py-2 bg-gray-400">
+              <div className="grid grid-cols-3 items-center gap-2">
+                <span onClick={decrease} className=" text-3xl text-end">
+                  -
+                </span>
+                <span className="bg-stone-100 text-black px-3 text-center">
+                  {count}
+                </span>
+                <span onClick={increase} className="text-3xl ">
+                  +
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col text-2xl gap-2 py-2 bg-gray-400">
+              <div className="grid grid-cols-3 items-center gap-2">
+                <span onClick={decrease} className=" text-3xl text-end">
+                  -
+                </span>
+                <span className="bg-stone-100 text-black px-3 text-center">
+                  {count}
+                </span>
+                <span onClick={increase} className="text-3xl ">
+                  +
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="border-r border-gray-400">
+            <h4 className="bg-secondColor font-bold uppercase text-xl text-center py-2">
+              Giá (VNĐ)
+            </h4>
+            <div className="flex flex-col text-black text-2xl ml-4 gap-5 py-2 text-center">
+              <span>13500đ</span>
+              <span>13500đ</span>
+            </div>
+          </div>
+          <div className="border-r border-gray-400">
+            <h4 className="bg-secondColor font-bold uppercase text-xl text-center py-2">
+              Tổng tiền (VNĐ)
+            </h4>
+            <div className="flex flex-col text-black text-2xl ml-4 gap-5 py-2 text-center">
+              <span>13500đ</span>
+              <span>13500đ</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full overflow-x-scroll">
+          <div className="w-[600px] grid grid-cols-4">
+            <div>
+              <h4 className="bg-secondColor font-bold uppercase  text-center py-2">
+                Loại vé
+              </h4>
+              <div className="flex flex-col text-black pl-4 gap-5 py-2 bg-white">
+                <span>Người Lớn (Đôi)</span>
+                <span>Người Lớn (Đơn)</span>
+              </div>
+            </div>
+            <div className="border-l border-r border-gray-400">
+              <h4 className="bg-secondColor font-bold uppercase text-center py-2">
+                Số lượng
+              </h4>
+              <div className="flex flex-col py-1.5  bg-gray-400">
+                <div className="grid grid-cols-3 items-center gap-2">
+                  <span onClick={decrease} className=" text-3xl text-end">
+                    -
+                  </span>
+                  <span className="bg-stone-100 text-black px-3 text-center">
+                    {count}
+                  </span>
+                  <span onClick={increase} className="text-xl ">
+                    +
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col bg-gray-400">
+                <div className="grid grid-cols-3 items-center gap-2">
+                  <span onClick={decrease} className=" text-3xl text-end">
+                    -
+                  </span>
+                  <span className="bg-stone-100 text-black px-3 text-center">
+                    {count}
+                  </span>
+                  <span onClick={increase} className="text-xl">
+                    +
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="border-r border-gray-400">
+              <h4 className="bg-secondColor font-bold uppercase  text-center py-2">
+                Giá (VNĐ)
+              </h4>
+              <div className="flex flex-col text-black bg-white gap-5 py-2 text-center">
+                <span>13500đ</span>
+                <span>13500đ</span>
+              </div>
+            </div>
+            <div className="border-r border-gray-400">
+              <h4 className="bg-secondColor font-bold uppercase  text-center py-2">
+                Tổng tiền (VNĐ)
+              </h4>
+              <div className="flex flex-col text-black bg-white gap-5 py-2 text-center">
+                <span>13500đ</span>
+                <span>13500đ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-b bg-white border-gray-400 flex lg:flex-row flex-col justify-center lg:gap-10 gap-2 pl-4 lg:pl-0 text-gray-400 uppercase lg:text-2xl font-bold py-4">
+          <div>
+            Số lượng: <span className="uppercase text-gray-600">0 Vé</span>
+          </div>
+          <div>
+            Tổng số tiền: <span className="uppercase text-gray-600">0 đ</span>
+          </div>
+        </div>
+        <div className="h-8 w-full bg-white" />
+      </div>
+
       <div>
-        <div className="bg-mainColor uppercase text-stone-100 text-xl text-center font-bold py-1 border-t border-b border-stone-100">
+        <div className="bg-mainColor uppercase text-stone-100 text-xl text-center font-bold py-1 lg:py-2 border-t border-b border-stone-100">
           Cinestar quốc thanh
         </div>
-        <div className="uppercase py-1 bg-gray-400 w-[90%] mx-auto rounded-full text-center text-stone-100 font-bold mt-4 mb-20">
+        <div
+          className="uppercase py-1 lg:py-2 bg-gray-400 w-[90%] lg:w-[60%] mx-auto rounded-full text-center text-stone-100 font-bold mt-4 mb-16"
+          style={{ boxShadow: "rgb(0 0 0 / 13%) 4px 4px 0px" }}
+        >
           Màn hình
         </div>
-        <div className="w-[90%] mx-auto flex overflow-x-scroll overflow-hidden">
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-          <ItemSeat />
-        </div>
+        <Seat />
       </div>
       <div className="h-96" />
     </div>
