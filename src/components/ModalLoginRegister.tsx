@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface ModalLoginRegisterProps {
   statusModal?: number;
@@ -27,6 +29,13 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 }) => {
   const [gender, setGender] = useState("male");
   const [statusFindPassword, setStatusFindPassword] = useState<boolean>(false);
+  const [birthDay, setBirthDay] = useState<any>(new Date());
+  const options = {
+    timeZone: "Asia/Ho_Chi_Minh",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  };
 
   const {
     register,
@@ -38,6 +47,10 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
     if (data.password !== data.confirmPassword) {
       return toast.error("Nhập lại mật khẩu không đúng");
     }
+    console.log({
+      ...data,
+      birthDay: birthDay.toLocaleString("vi-VN", options),
+    });
   };
 
   const onSubmitLogin: SubmitHandler<IFormInputs> = (data) => {
@@ -48,6 +61,12 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
     setGender(event.target.value);
   };
 
+  const moveMouseLeave = () => {
+    setTimeout(() => {
+      onClose();
+    }, 50000);
+  };
+
   useEffect(() => {
     if (statusModal === STATUS_REGISTER) {
       setStatusFindPassword(false);
@@ -55,7 +74,13 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   }, [statusModal]);
 
   return (
-    <div className="flex flex-col bg-stone-100 border border-mainColor justify-center py-6">
+    <div
+      onMouseLeave={(e) => {
+        e.stopPropagation();
+        moveMouseLeave();
+      }}
+      className="flex flex-col bg-stone-100 border border-mainColor justify-center py-6"
+    >
       {!statusFindPassword ? (
         <>
           <p className="text-center italic text-gray-500 font-semibold mb-4">
@@ -100,8 +125,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
             >
               <div className="relative">
                 <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="Họ tên (*)"
+                  className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="HỌ TÊN (*)"
                   {...register("firstName", { required: true })}
                   aria-invalid={errors.firstName ? "true" : "false"}
                 />
@@ -113,23 +138,19 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
               </div>
 
               <div className="relative">
-                <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="DD/MM/YYYY (Ngày sinh)(*)"
-                  {...register("birthDay", { required: true })}
-                  aria-invalid={errors.birthDay ? "true" : "false"}
+                <DatePicker
+                  dateFormat="dd/MM/yyyy"
+                  className="py-1.5 px-5 focus:outline-none w-full rounded-full border border-mainColor"
+                  selected={birthDay}
+                  // {...register("birthDay", { required: true })}
+                  onChange={(date) => setBirthDay(date)}
                 />
-                {errors.birthDay?.type === "required" && (
-                  <p className="text-red-500 pl-3 absolute">
-                    (*) Vui lòng nhập ngày sinh
-                  </p>
-                )}
               </div>
 
               <div className="relative">
                 <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="Số điện thoại(*)"
+                  className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="SỐ ĐIỆN THOẠI(*)"
                   {...register("phone", { required: true })}
                   aria-invalid={errors.phone ? "true" : "false"}
                 />
@@ -142,8 +163,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
               <div className="relative">
                 <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="Email(*)"
+                  className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="EMAIL(*)"
                   {...register("email", { required: true })}
                   aria-invalid={errors.email ? "true" : "false"}
                 />
@@ -156,8 +177,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
               <div className="relative">
                 <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="Mật khẩu(*)"
+                  className=" py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="MẬT KHẨU(*)"
                   {...register("password", { required: true })}
                   aria-invalid={errors.password ? "true" : "false"}
                 />
@@ -170,8 +191,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
               <div className="relative">
                 <input
-                  className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                  placeholder="Nhập lại mật khẩu(*)"
+                  className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="NHẬP LẠI MẬT KHẨU(*)"
                   {...register("confirmPassword", { required: true })}
                   aria-invalid={errors.confirmPassword ? "true" : "false"}
                 />
@@ -183,7 +204,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
               </div>
 
               <button
-                className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[45%] mx-auto text-white font-bold text-lg"
+                className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[45%] mx-auto text-white font-bold text-lg hover:opacity-70 duration-300 active:opacity-100"
                 type="submit"
               >
                 Đăng ký
@@ -197,8 +218,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
               >
                 <div className="relative">
                   <input
-                    className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                    placeholder="Email(*)"
+                    className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                    placeholder="EMAIL(*)"
                     {...register("emailLogin", { required: true })}
                     aria-invalid={errors.emailLogin ? "true" : "false"}
                   />
@@ -210,8 +231,8 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                 </div>
                 <div className="relative">
                   <input
-                    className="uppercase py-1.5 px-5 border border-mainColor rounded-full w-full"
-                    placeholder="Password(*)"
+                    className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                    placeholder="PASSWORD(*)"
                     {...register("passwordLogin", { required: true })}
                     aria-invalid={errors.passwordLogin ? "true" : "false"}
                   />
@@ -253,7 +274,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
           </div>
           <div className="text-center flex flex-col gap-2 mt-6">
             <button
-              className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[30%] mx-auto text-white font-bold text-lg"
+              className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[30%] mx-auto text-white font-bold text-lg hover:opacity-80 duration-300"
               type="submit"
             >
               GỬI
