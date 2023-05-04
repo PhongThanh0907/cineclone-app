@@ -30,19 +30,19 @@ const MenuUser = () => {
         <div className="flex mx-auto lg:mx-0 gap-6 relative">
           <div
             onClick={() => handleStatusOption(STATUS_REGISTER)}
-            className="flex items-center cursor-pointer gap-1"
+            className="flex items-center cursor-pointer gap-1 group"
           >
             <img className="h-10 lg:h-14" src={Register} alt="register" />
-            <h4 className="uppercase text-xs lg:text-lg font-bold text-mainColor">
+            <h4 className="uppercase text-xs lg:text-lg font-bold text-mainColor group-hover:text-secondColor duration-300">
               Đăng ký thành viên
             </h4>
           </div>
           <div
             onClick={() => handleStatusOption(STATUS_LOGIN)}
-            className="flex items-center cursor-pointer gap-1"
+            className="flex items-center cursor-pointer gap-1 group"
           >
             <img className="h-10 lg:h-14" src={Login} alt="login" />
-            <h4 className="uppercase text-xs lg:text-lg font-bold text-mainColor">
+            <h4 className="uppercase text-xs lg:text-lg font-bold text-mainColor group-hover:text-secondColor duration-300">
               Đăng nhập
             </h4>
           </div>

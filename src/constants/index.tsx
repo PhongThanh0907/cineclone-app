@@ -14,6 +14,7 @@ export const menuHeader = [
 ];
 
 export const optionMovie = [
+  { title: "Chọn phim", value: 0 },
   { title: "Lật mặt 6(C13)", value: 1 },
   { title: "Âm vực chết(C18)", value: 2 },
   { title: "Lật mặt 6(C13)", value: 13 },
@@ -24,6 +25,12 @@ export const optionMovie = [
   { title: "Lật mặt 6(C13)", value: 13 },
   { title: "Lật mặt 6(C13)", value: 13 },
   { title: "Lật mặt 6(C13)", value: 13 },
+];
+
+export const cineMovie = [
+  { title: "Chọn rạp", value: 0 },
+  { title: "Cine Quốc Thanh", value: 1 },
+  { title: "Cine Hai Bà Trưng", value: 2 },
 ];
 
 export const Promotions = [

@@ -30,18 +30,18 @@ const Header = () => {
     <div
       className={`   ${
         scrolled
-          ? "fixed top-0 w-full z-50 py-4 lg:py-1 duration-500 bg-black/50 h-20 lg:h-24"
+          ? "fixed top-0 w-full z-50 py-4 lg:py-1 duration-500 bg-black/50 h-16 lg:h-20"
           : "py-4 lg:py-2 relative  duration-500 mainBackground h-24 lg:h-32"
       }`}
     >
       <div className="flex items-center justify-between px-3 lg:w-[90%] lg:mx-auto">
-        <div>
+        <div className="w-[80%] lg:w-[20%] relative h-16">
           <img
             src={Logo}
             className={` ${
               scrolled
-                ? "h-14 mx-auto lg:h-24 lg:scale-50 duration-500"
-                : "h-14 lg:h-24 lg:scale-100 duration-500"
+                ? "h-14 mx-auto lg:h-24 lg:scale-50 duration-500 absolute left-24 lg:-left-10 -top-3"
+                : "h-14 lg:h-24 lg:scale-100 duration-500 absolute left-0 lg:-top-2"
             }`}
             alt="Logo"
           />
@@ -51,7 +51,9 @@ const Header = () => {
         <div className="hidden lg:flex flex-col gap-3 mr-0 items-end">
           <div
             className={`${
-              scrolled ? "hidden duration-500" : "w-[30%] duration-500"
+              scrolled
+                ? "duration-500 h-0 overflow-hidden opacity-0"
+                : "w-[30%] duration-500 h-11 opacity-100"
             }`}
           >
             <HomeSearch />
@@ -89,7 +91,9 @@ const Header = () => {
 
         {/* Mobile */}
         <div
-          className="lg:hidden"
+          className={`lg:hidden ${
+            scrolled ? "mb-6 duration-500" : "mb-0 duration-500"
+          }`}
           onClick={() => setOpenMenuMobile(!openMenuMobile)}
         >
           <IconMenuButton openMenu={openMenuMobile} />
