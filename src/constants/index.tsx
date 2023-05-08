@@ -2,6 +2,8 @@ import Promotion01 from "../assets/images/0330-web.jpg";
 import Promotion02 from "../assets/images/c_monday.jpg";
 import Promotion03 from "../assets/images/c'member.jpg";
 
+export const baseURL = "http://localhost:8800/api/";
+
 export const menuHeader = [
   { title: "Phim", path: "/phimdangchieu" },
   { title: "Lịch Chiếu", path: "/lichchieu" },

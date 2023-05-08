@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import ResetPassword from "../pages/ResetPassword";
 
 const HomePage = React.lazy(() => import("../pages/Home"));
 const MoviePage = React.lazy(() => import("../pages/Movies"));
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/khuyenmai", element: <Promotion /> },
       { path: "/phim/:id", element: <DetailMovie /> },
       { path: "/lichchieu/:id", element: <ShowTimeDetail /> },
+      { path: "/resetpassword/:id", element: <ResetPassword /> },
     ],
   },
   { path: "/booking/:id", element: <Booking /> },

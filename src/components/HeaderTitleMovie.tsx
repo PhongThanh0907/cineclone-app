@@ -5,7 +5,7 @@ const HeaderTitleMovie = () => {
 
   return (
     <div>
-      <div className="flex uppercase text-xs lg:text-2xl  w-[92%] lg:w-[65%] mx-auto justify-between relative text-stone-100">
+      <div className="flex uppercase text-xs lg:text-2xl  w-[92%] lg:w-[65%] mx-auto justify-between relative text-stone-100 z-0">
         <div
           onClick={() => setStatusListFilm(1)}
           className={` ${

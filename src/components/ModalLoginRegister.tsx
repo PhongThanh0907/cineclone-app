@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import { AppDispatch, RootState } from "../app/store";
+import userService from "../services/user.service";
+import { User } from "../types/User";
+import { registerUser } from "../app/features/user/userSlice";
 
 interface ModalLoginRegisterProps {
   statusModal?: number;
@@ -10,14 +16,16 @@ interface ModalLoginRegisterProps {
 }
 
 interface IFormInputs {
-  firstName: string;
+  userName: string;
   birthDay: string;
   confirmPassword: string;
   email: string;
   password: string;
-  phone: number;
+  address: string;
   emailLogin: string;
   passwordLogin: string;
+  mobile: string;
+  gender: string;
 }
 
 const STATUS_LOGIN = 1;
@@ -28,8 +36,21 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   onClose,
 }) => {
   const [gender, setGender] = useState("male");
+  const [openModal, setOpenModal] = useState(statusModal);
   const [statusFindPassword, setStatusFindPassword] = useState<boolean>(false);
   const [birthDay, setBirthDay] = useState<any>(new Date());
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingLogin, setIsLoadingLogin] = useState<boolean>(false);
+  const [emailForgotPassword, setEmailForgotPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const { isLoggedIn, userInfo, token } = useSelector(
+    (state: RootState) => state.user
+  );
+
+  console.log(emailForgotPassword);
+
   const options = {
     timeZone: "Asia/Ho_Chi_Minh",
     day: "2-digit",
@@ -43,19 +64,73 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
     handleSubmit,
   } = useForm<IFormInputs>();
 
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    if (data.password !== data.confirmPassword) {
-      return toast.error("Nhập lại mật khẩu không đúng");
-    }
-    console.log({
-      ...data,
-      birthDay: birthDay.toLocaleString("vi-VN", options),
-    });
-  };
+  const onSubmit: SubmitHandler<IFormInputs> = useCallback(
+    async (data) => {
+      setIsLoading(true);
 
-  const onSubmitLogin: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
-  };
+      if (data.password !== data.confirmPassword) {
+        return toast.error("Nhập lại mật khẩu không đúng");
+      }
+
+      const dataSubmit: User = {
+        ...data,
+        gender: gender,
+        birthDay: birthDay.toLocaleString("vi-VN", options),
+      };
+
+      try {
+        const res = await userService.registerUser(dataSubmit);
+        console.log(res);
+        toast.success("Đăng ký thành công!");
+        dispatch(
+          registerUser({
+            isLoggedIn: true,
+            token: res.data.token,
+            userInfo: res.data,
+          })
+        );
+        setOpenModal(STATUS_LOGIN);
+      } catch (error: any) {
+        console.log(error);
+        toast.error(
+          `${
+            error.response.data.message
+              ? error.response.data.message
+              : "Đăng ký thất bại. Xin vui lòng thử lại"
+          }`
+        );
+      }
+      setIsLoading(false);
+    },
+    [birthDay, gender, options, dispatch]
+  );
+
+  const onSubmitLogin: SubmitHandler<IFormInputs> = useCallback(
+    async (data) => {
+      setIsLoadingLogin(true);
+      const dataSubmit: User = {
+        email: data.emailLogin,
+        password: data.passwordLogin,
+      };
+      try {
+        await userService.loginUser(dataSubmit);
+        toast.success("Đăng nhập thành công!");
+      } catch (error: any) {
+        console.log(error);
+        toast.error(`${error.response.data.message}`);
+      }
+      setIsLoadingLogin(false);
+    },
+    []
+  );
+
+  const handleForgotPassword = useCallback(async () => {
+    console.log(emailForgotPassword);
+    const res = await userService.forgotPassword({
+      email: emailForgotPassword,
+    });
+    console.log(res);
+  }, []);
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGender(event.target.value);
@@ -64,22 +139,26 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   const moveMouseLeave = () => {
     setTimeout(() => {
       onClose();
-    }, 50000);
+    }, 10000);
   };
 
   useEffect(() => {
-    if (statusModal === STATUS_REGISTER) {
+    setOpenModal(statusModal);
+  }, [statusModal]);
+
+  useEffect(() => {
+    if (openModal === STATUS_REGISTER) {
       setStatusFindPassword(false);
     }
-  }, [statusModal]);
+  }, [openModal]);
 
   return (
     <div
-      onMouseLeave={(e) => {
-        e.stopPropagation();
-        moveMouseLeave();
-      }}
-      className="flex flex-col bg-stone-100 border border-mainColor justify-center py-6"
+      // onMouseLeave={(e) => {
+      //   e.stopPropagation();
+      //   moveMouseLeave();
+      // }}
+      className="flex flex-col bg-stone-100 border border-mainColor justify-center py-6 z-30"
     >
       {!statusFindPassword ? (
         <>
@@ -91,7 +170,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
             )}
           </p>
 
-          {statusModal === STATUS_REGISTER && (
+          {openModal === STATUS_REGISTER && (
             <div className="flex items-center justify-center mb-4">
               <label className="inline-flex items-center">
                 <input
@@ -118,7 +197,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
             </div>
           )}
 
-          {statusModal === STATUS_REGISTER ? (
+          {openModal === STATUS_REGISTER ? (
             <form
               className="flex flex-col px-4 gap-7"
               onSubmit={handleSubmit(onSubmit)}
@@ -127,10 +206,10 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                 <input
                   className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
                   placeholder="HỌ TÊN (*)"
-                  {...register("firstName", { required: true })}
-                  aria-invalid={errors.firstName ? "true" : "false"}
+                  {...register("userName", { required: true })}
+                  aria-invalid={errors.userName ? "true" : "false"}
                 />
-                {errors.firstName?.type === "required" && (
+                {errors.userName?.type === "required" && (
                   <p className="text-red-500 pl-3 absolute">
                     (*) Vui lòng nhập họ tên của bạn
                   </p>
@@ -151,12 +230,26 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                 <input
                   className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
                   placeholder="SỐ ĐIỆN THOẠI(*)"
-                  {...register("phone", { required: true })}
-                  aria-invalid={errors.phone ? "true" : "false"}
+                  {...register("mobile", { required: true })}
+                  aria-invalid={errors.mobile ? "true" : "false"}
                 />
-                {errors.phone?.type === "required" && (
+                {errors.mobile?.type === "required" && (
                   <p className="text-red-500 pl-3 absolute">
                     (*) Vui lòng nhập số điện thoại
+                  </p>
+                )}
+              </div>
+
+              <div className="relative">
+                <input
+                  className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
+                  placeholder="ĐỊA CHỈ(*)"
+                  {...register("address", { required: true })}
+                  aria-invalid={errors.address ? "true" : "false"}
+                />
+                {errors.address?.type === "required" && (
+                  <p className="text-red-500 pl-3 absolute">
+                    (*) Vui lòng nhập địa chỉ
                   </p>
                 )}
               </div>
@@ -177,6 +270,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
               <div className="relative">
                 <input
+                  type="password"
                   className=" py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
                   placeholder="MẬT KHẨU(*)"
                   {...register("password", { required: true })}
@@ -191,6 +285,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
               <div className="relative">
                 <input
+                  type="password"
                   className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
                   placeholder="NHẬP LẠI MẬT KHẨU(*)"
                   {...register("confirmPassword", { required: true })}
@@ -207,7 +302,16 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                 className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[45%] mx-auto text-white font-bold text-lg hover:opacity-70 duration-300 active:opacity-100"
                 type="submit"
               >
-                Đăng ký
+                {isLoading ? (
+                  <div className="lds-ring m-auto -top-5 -left-4">
+                    <div className="w-7 h-7" />
+                    <div className="w-7 h-7" />
+                    <div className="w-7 h-7" />
+                    <div className="w-7 h-7" />
+                  </div>
+                ) : (
+                  <>Đăng ký</>
+                )}
               </button>
             </form>
           ) : (
@@ -247,7 +351,16 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                   className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[45%] mx-auto text-white font-bold text-lg"
                   type="submit"
                 >
-                  Đăng nhập
+                  {isLoadingLogin ? (
+                    <div className="lds-ring m-auto -top-5 -left-4">
+                      <div className="w-7 h-7" />
+                      <div className="w-7 h-7" />
+                      <div className="w-7 h-7" />
+                      <div className="w-7 h-7" />
+                    </div>
+                  ) : (
+                    <>Đăng nhập</>
+                  )}
                 </button>
               </form>
               <p
@@ -269,11 +382,13 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
             <input
               type="email"
               placeholder="EMAIL"
+              onChange={(e) => setEmailForgotPassword(e.target.value)}
               className="w-full border border-mainColor rounded-full py-2 pl-2  text-gray-500 focus:outline-none"
             />
           </div>
           <div className="text-center flex flex-col gap-2 mt-6">
             <button
+              onClick={handleForgotPassword}
               className="rounded-r-full rounded-tl-full py-3 bg-secondColor w-[30%] mx-auto text-white font-bold text-lg hover:opacity-80 duration-300"
               type="submit"
             >
