@@ -1,15 +1,32 @@
 import React, { useState, useCallback } from "react";
 import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+
+import userService from "../../services/user.service";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (password !== confirmPassword) {
       return toast.error("Nhập lại mật khẩu không đúng");
     }
-  }, [password, confirmPassword]);
+    try {
+      const res = await userService.resetPassword({
+        password: password,
+        token: id,
+      });
+      toast.success(`${res.data.message}`);
+      navigate("/");
+    } catch (error: any) {
+      console.log(error);
+      toast.error(`${error.response.data.message}`);
+    }
+  }, [password, confirmPassword, id, navigate]);
+
   return (
     <div className="w-[90%] lg:w-[40%] mx-auto flex flex-col gap-2 lg:py-10 py-4">
       <h4 className="text-2xl font-semibold text-center mb-4">Đổi mật khẩu</h4>

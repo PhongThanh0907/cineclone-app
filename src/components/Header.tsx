@@ -6,11 +6,21 @@ import { menuHeader } from "../constants";
 import HomeSearch from "./HomeSearch";
 import Logo from "../assets/images/logo.png";
 import IconMenuButton from "./IconMenuButton";
+import { User } from "../types/User";
 
 const Header = () => {
   const path = useLocation();
   const [openMenuMobile, setOpenMenuMobile] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState(false);
+  const [userInfo, setUserInfo] = useState<User>();
+  const persistedStateString = localStorage.getItem("persist:cine/user");
+
+  useEffect(() => {
+    if (persistedStateString) {
+      const persistedState = JSON.parse(persistedStateString);
+      setUserInfo(JSON.parse(persistedState.userInfo));
+    }
+  }, [persistedStateString]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -30,8 +40,8 @@ const Header = () => {
     <div
       className={`   ${
         scrolled
-          ? "fixed top-0 w-full z-50 py-4 lg:py-1 duration-500 bg-black/50 h-16 lg:h-20"
-          : "py-4 lg:py-2 relative  duration-500 mainBackground h-24 lg:h-32"
+          ? "fixed top-0 w-full z-10 py-4 lg:py-1 duration-500 bg-black/50 h-16 lg:h-20"
+          : "py-4 lg:py-2 relative duration-500 mainBackground h-24 lg:h-32"
       }`}
     >
       <div className="flex items-center justify-between px-3 lg:w-[90%] lg:mx-auto">
@@ -53,9 +63,12 @@ const Header = () => {
             className={`${
               scrolled
                 ? "duration-500 h-0 overflow-hidden opacity-0"
-                : "w-[30%] duration-500 h-11 opacity-100"
+                : "w-[50%] duration-500 h-11 opacity-100 flex gap-4 justify-center items-center"
             }`}
           >
+            <span className="w-72 text-stone-100">
+              {userInfo ? `Xin chào, ${userInfo.userName}` : ""}
+            </span>
             <HomeSearch />
           </div>
           <div className="flex gap-4">

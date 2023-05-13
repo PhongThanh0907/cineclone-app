@@ -4,7 +4,7 @@ type Props = {
 
 const IconMenuButton = ({ openMenu }: Props) => {
   return (
-    <div className="h-[26px] w-11 relative flex justify-center z-30">
+    <div className="h-[26px] w-11 relative flex justify-center z-10">
       <div
         className={`h-1.5 w-9 bg-gradient-to-r from-[#ADFF2F] to-mainColor absolute rounded-sm  ${
           openMenu

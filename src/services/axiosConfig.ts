@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseURL } from "../constants";
 
-export const axiosClient = axios.create({
+export const axiosConfig = axios.create({
   baseURL: baseURL,
   headers: {
     "Content-type": "application/json",
@@ -9,7 +9,7 @@ export const axiosClient = axios.create({
 });
 
 // Add a request interceptor
-axiosClient.interceptors.request.use(
+axiosConfig.interceptors.request.use(
   function (config) {
     return config;
   },
@@ -19,7 +19,7 @@ axiosClient.interceptors.request.use(
 );
 
 // Add a response interceptor
-axiosClient.interceptors.response.use(
+axiosConfig.interceptors.response.use(
   function (response) {
     return response;
   },

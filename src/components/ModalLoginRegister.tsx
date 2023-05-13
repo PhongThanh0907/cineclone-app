@@ -5,10 +5,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AppDispatch, RootState } from "../app/store";
 import userService from "../services/user.service";
 import { User } from "../types/User";
-import { registerUser } from "../app/features/user/userSlice";
+import { loginUser } from "../app/features/user/userSlice";
 
 interface ModalLoginRegisterProps {
   statusModal?: number;
@@ -45,19 +44,6 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
   const dispatch = useDispatch();
 
-  const { isLoggedIn, userInfo, token } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  console.log(emailForgotPassword);
-
-  const options = {
-    timeZone: "Asia/Ho_Chi_Minh",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  };
-
   const {
     register,
     formState: { errors },
@@ -67,7 +53,12 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   const onSubmit: SubmitHandler<IFormInputs> = useCallback(
     async (data) => {
       setIsLoading(true);
-
+      const options = {
+        timeZone: "Asia/Ho_Chi_Minh",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      };
       if (data.password !== data.confirmPassword) {
         return toast.error("Nhập lại mật khẩu không đúng");
       }
@@ -79,16 +70,15 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
       };
 
       try {
-        const res = await userService.registerUser(dataSubmit);
-        console.log(res);
+        await userService.registerUser(dataSubmit);
         toast.success("Đăng ký thành công!");
-        dispatch(
-          registerUser({
-            isLoggedIn: true,
-            token: res.data.token,
-            userInfo: res.data,
-          })
-        );
+        // dispatch(
+        //   registerUser({
+        //     isLoggedIn: true,
+        //     token: res.data.token,
+        //     userInfo: res.data,
+        //   })
+        // );
         setOpenModal(STATUS_LOGIN);
       } catch (error: any) {
         console.log(error);
@@ -102,7 +92,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
       }
       setIsLoading(false);
     },
-    [birthDay, gender, options, dispatch]
+    [birthDay, gender]
   );
 
   const onSubmitLogin: SubmitHandler<IFormInputs> = useCallback(
@@ -113,24 +103,39 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
         password: data.passwordLogin,
       };
       try {
-        await userService.loginUser(dataSubmit);
+        const res = await userService.loginUser(dataSubmit);
         toast.success("Đăng nhập thành công!");
+        dispatch(
+          loginUser({
+            isLoggedIn: true,
+            token: res.data.accessToken,
+            userInfo: res.data,
+          })
+        );
+        onClose();
+        window.location.reload();
       } catch (error: any) {
         console.log(error);
-        toast.error(`${error.response.data.message}`);
+        toast.error(`${error.response?.data.message}`);
       }
       setIsLoadingLogin(false);
     },
-    []
+    [onClose, dispatch]
   );
 
   const handleForgotPassword = useCallback(async () => {
-    console.log(emailForgotPassword);
-    const res = await userService.forgotPassword({
-      email: emailForgotPassword,
-    });
-    console.log(res);
-  }, []);
+    try {
+      const res = await userService.forgotPassword({
+        email: emailForgotPassword,
+      });
+      toast.success(`${res.data.message}`);
+      setEmailForgotPassword("");
+      onClose();
+    } catch (error: any) {
+      console.log(error);
+      toast.error(`${error.response.data.message}`);
+    }
+  }, [emailForgotPassword, onClose]);
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGender(event.target.value);
@@ -221,7 +226,6 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                   dateFormat="dd/MM/yyyy"
                   className="py-1.5 px-5 focus:outline-none w-full rounded-full border border-mainColor"
                   selected={birthDay}
-                  // {...register("birthDay", { required: true })}
                   onChange={(date) => setBirthDay(date)}
                 />
               </div>
@@ -335,6 +339,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
                 </div>
                 <div className="relative">
                   <input
+                    type="password"
                     className="py-1.5 px-5 border border-mainColor rounded-full w-full focus:outline-none"
                     placeholder="PASSWORD(*)"
                     {...register("passwordLogin", { required: true })}
