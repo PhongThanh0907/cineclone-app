@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,7 +32,7 @@ const Promotion = () => {
         </ul>
       </div>
     ),
-    customPaging: (i: any) => <div className="h-5" />,
+    customPaging: () => <div className="h-5" />,
     responsive: [
       {
         breakpoint: 480,
@@ -60,7 +59,7 @@ const Promotion = () => {
               </ul>
             </div>
           ),
-          customPaging: (i: any) => <div className="h-5" />,
+          customPaging: () => <div className="h-5" />,
         },
       },
     ],

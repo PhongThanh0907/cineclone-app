@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,7 +11,6 @@ import ItemMovieHover from "./ItemMovieHover";
 import HeaderTitleMovie from "./HeaderTitleMovie";
 
 const Movies = () => {
-  const [statusListFilm, setStatusListFilm] = useState(1);
   const [openModalDetail, setOpenModalDetail] = useState(false);
 
   const settings = {

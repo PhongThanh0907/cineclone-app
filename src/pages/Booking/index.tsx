@@ -1,19 +1,12 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Header from "../../components/Header";
 import Line from "../../assets/images/line-bg.png";
-import couple from "../../assets/images/couple-chair.png";
-import single from "../../assets/images/single-chair.png";
-import ItemSeat from "./ItemSeat";
+
 import Seat from "./Seat";
 
 const Booking = () => {
   const [count, setCount] = useState<number>(1);
-
-  const seatWidth = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-  ];
-  const seatHeight = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L"];
 
   const decrease = useCallback(() => {
     if (count >= 1) {

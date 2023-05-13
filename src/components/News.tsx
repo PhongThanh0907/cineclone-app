@@ -1,4 +1,3 @@
-import React from "react";
 import ItemNew from "./ItemNew";
 import iconnews from "../assets/images/iocn-news.png";
 

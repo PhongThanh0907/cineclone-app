@@ -25,7 +25,7 @@ export const userSlice = createSlice({
       state.userInfo = action.payload.updatedUser;
       console.log(state.userInfo);
     },
-    logoutUser: (state: UserState, action) => {
+    logoutUser: (state: UserState) => {
       state.isLoggedIn = false;
       state.userInfo = null;
       state.token = null;

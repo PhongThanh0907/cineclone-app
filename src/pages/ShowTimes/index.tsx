@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 import Logo from "../../assets/images/logo.png";
 import ItemMovieBooking from "./ItemMovieBooking";
@@ -6,7 +6,6 @@ import ItemMovieBooking from "./ItemMovieBooking";
 const ShowTimesPage = () => {
   const listProps = [{ title: "Hồ Chí Minh", value: 1 }];
   const [locationCine, setLocationCine] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
 
   const listProps2 = [
     { title: "Cinestar quốc thanh", value: 1 },

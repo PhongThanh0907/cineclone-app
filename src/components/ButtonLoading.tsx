@@ -1,4 +1,3 @@
-import React from "react";
 import star from "../assets/images/icon-start.png";
 
 const ButtonLoading = () => {

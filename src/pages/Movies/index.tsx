@@ -1,11 +1,7 @@
-import React, { useState } from "react";
 import ItemMovie from "./ItemMovie";
 import HeaderTitleMovie from "../../components/HeaderTitleMovie";
 
 const MoviePage = () => {
-  const [statusListFilm, setStatusListFilm] = useState(1);
-  const [bgColor, setBgColor] = useState("");
-
   const listFilm = [
     " bg-[#f18720]",
     " bg-[#ba3469]",
@@ -13,8 +9,6 @@ const MoviePage = () => {
     " bg-[#ba3469]",
     " bg-[#f18720]",
   ];
-
-  const listColor = ["#f18720", "#aa41a0", "#7c2665", "#ba3469"];
 
   return (
     <div className="py-10 mainBackground">

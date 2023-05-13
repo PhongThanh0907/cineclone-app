@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 import Logo from "../../assets/images/logo.png";
 import BangGia2D from "../../assets/images/bang-gia-ve-cinestar-quoc-thanh-2d.jpg";

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useState } from "react";
 
 import Line from "../assets/images/line-bg.png";
 import Icon from "../assets/images/icon-ticket.png";
@@ -8,7 +8,6 @@ import SelectComponent from "./SelectComponent";
 
 const OrderTicketOnline = () => {
   const [selectedMovie, setSelectedMovie] = useState<string>();
-  const [selectedCine, setSelectedCine] = useState<string>();
 
   const handleSelectedMovie = (e: string) => {
     setSelectedMovie(e);

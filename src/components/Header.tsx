@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { HomeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation } from "react-router-dom";
 

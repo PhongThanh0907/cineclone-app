@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 import BietDoi from "../../assets/images/biet-doi-rat-on-official-poster.jpg";
 
@@ -8,6 +8,7 @@ const ShowTimesDetail = () => {
   const selectedCine = (value: string) => {
     setLocationCine(value);
   };
+  console.log(locationCine);
 
   const listProps2 = [
     { title: "Cinestar quốc thanh", value: 1 },

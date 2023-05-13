@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Call from "../assets/images/icon-call.png";
 import Login from "../assets/images/icon-login.png";
 import Pattern from "../assets/images/pattern.png";
 import Register from "../assets/images/icon-register.png";
 import ModalLoginRegister from "./ModalLoginRegister";
-import { User } from "../types/User";
 import ModalUserInfo from "./ModalUserInfo";
-import userService from "../services/user.service";
 import { logoutUser } from "../app/features/user/userSlice";
 
 const STATUS_LOGIN = 1;
@@ -18,20 +16,17 @@ const STATUS_USERINFO = 3;
 
 const MenuUser = () => {
   const [statusModal, setStatusModal] = useState<number>();
-  const persistedStateString = localStorage.getItem("persist:cine/user");
   const [statusSuccess, setStatusSuccess] = useState<boolean>(false);
   const [confirmLogout, setConfirmLogout] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<User>();
   const dispatch = useDispatch();
 
   const handleLogout = useCallback(async () => {
     setIsLoading(true);
     try {
-      dispatch(logoutUser(""));
+      dispatch(logoutUser());
       // await userService.logoutUser();
       toast.success("Đăng xuất thành công");
-      setUserInfo(undefined);
       setConfirmLogout(false);
       setStatusSuccess(false);
     } catch (error) {
@@ -56,15 +51,6 @@ const MenuUser = () => {
   const onSetStatus = (statusSuccess: boolean) => {
     setStatusSuccess(statusSuccess);
   };
-
-  useEffect(() => {
-    if (persistedStateString) {
-      const persistedState = JSON.parse(persistedStateString);
-      if (persistedState) {
-        setUserInfo(JSON.parse(persistedState.userInfo));
-      }
-    }
-  }, [persistedStateString]);
 
   return (
     <div className="relative h-28 lg:h-16">

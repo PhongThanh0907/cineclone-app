@@ -4,11 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { User } from "../types/User";
 import userService from "../services/user.service";
-import { store } from "../app/store";
 import { updateUser } from "../app/features/user/userSlice";
 
 interface IFormInputs {

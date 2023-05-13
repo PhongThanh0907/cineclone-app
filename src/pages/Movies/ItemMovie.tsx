@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import img1 from "../../assets/images/biet-doi-rat-on-official-poster.jpg";
 import img2d from "../../assets/images/2d.png";
 import Play from "../../assets/images/icon-play.png";
@@ -9,7 +9,7 @@ interface ItemMovieProps {
   movies?: true;
 }
 
-const ItemMovie: React.FC<ItemMovieProps> = ({ bgColor, movies }) => {
+const ItemMovie: React.FC<ItemMovieProps> = ({ bgColor }) => {
   return (
     <div className={`p-4 pb-6 ${bgColor} rounded  duration-300`}>
       <Link

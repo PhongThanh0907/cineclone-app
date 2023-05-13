@@ -1,4 +1,3 @@
-import React from "react";
 import ItemSeat from "./ItemSeat";
 import Couple from "../../assets/images/couple-chair.png";
 import Single from "../../assets/images/single-chair.png";
@@ -27,7 +26,7 @@ const Seat = () => {
     <div>
       <div className="w-[90%] lg:w-[60%] mx-auto overflow-x-scroll ">
         <div className="w-[800px] lg:w-full  grid grid-cols-12 gap-4">
-          {seatHeight.map((itemH, indexH) => (
+          {seatHeight.map((itemH) => (
             <>
               <div className="col-span-2 flex gap-1">
                 {seatWidth.slice(0, 3).map((item, index) => (

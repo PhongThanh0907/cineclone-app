@@ -1,4 +1,3 @@
-import React from "react";
 import { StarIcon } from "@heroicons/react/24/outline";
 
 import Poster from "../../../assets/images/biet-doi-rat-on-official-poster.jpg";

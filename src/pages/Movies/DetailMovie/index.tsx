@@ -1,5 +1,3 @@
-import React from "react";
-
 import HeaderTitleMovie from "../../../components/HeaderTitleMovie";
 import Promotion from "../../../components/Promotion";
 import ItemMovieDetail from "./ItemMovieDetail";
