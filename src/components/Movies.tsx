@@ -47,7 +47,7 @@ const Movies = () => {
               </ul>
             </div>
           ),
-          customPaging: (i: any) => <div className="h-5" />,
+          customPaging: () => <div className="h-5" />,
         },
       },
     ],

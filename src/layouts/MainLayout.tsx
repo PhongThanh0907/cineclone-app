@@ -1,4 +1,4 @@
-import React, { ReactNode, Suspense } from "react";
+import { Suspense } from "react";
 import ToasterProvider from "../providers/ToasterProvider";
 import Header from "../components/Header";
 import MenuUser from "../components/MenuUser";

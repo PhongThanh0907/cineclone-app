@@ -1,4 +1,3 @@
-import React from "react";
 import Icon from "../assets/images/icon-search.png";
 
 const HomeSearch = () => {

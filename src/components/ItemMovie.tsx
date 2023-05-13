@@ -1,4 +1,3 @@
-import React from "react";
 import img1 from "../assets/images/biet-doi-rat-on-official-poster.jpg";
 const ItemMovie = () => {
   return (

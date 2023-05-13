@@ -5,7 +5,7 @@ interface MenuMobileProps {
   onClose: () => void;
 }
 
-const MenuMobile: React.FC<MenuMobileProps> = ({ openMenu, onClose }) => {
+const MenuMobile: React.FC<MenuMobileProps> = ({ openMenu }) => {
   if (!openMenu) return null;
 
   return (
