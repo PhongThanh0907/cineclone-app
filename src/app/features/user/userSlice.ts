@@ -19,7 +19,7 @@ export const userSlice = createSlice({
     loginUser: (state: UserState, action) => {
       state.isLoggedIn = action.payload.isLoggedIn;
       state.userInfo = action.payload.userInfo;
-      state.token = action.payload.userInfo.accessToken;
+      state.token = action.payload.token;
     },
     updateUser: (state: UserState, action) => {
       state.userInfo = action.payload.updatedUser;

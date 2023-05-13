@@ -12,6 +12,7 @@ import { loginUser } from "../app/features/user/userSlice";
 interface ModalLoginRegisterProps {
   statusModal?: number;
   onClose: () => void;
+  onSetStatus: (e: boolean) => void;
 }
 
 interface IFormInputs {
@@ -33,6 +34,7 @@ const STATUS_REGISTER = 2;
 const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   statusModal,
   onClose,
+  onSetStatus,
 }) => {
   const [gender, setGender] = useState("male");
   const [openModal, setOpenModal] = useState(statusModal);
@@ -72,13 +74,6 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
       try {
         await userService.registerUser(dataSubmit);
         toast.success("Đăng ký thành công!");
-        // dispatch(
-        //   registerUser({
-        //     isLoggedIn: true,
-        //     token: res.data.token,
-        //     userInfo: res.data,
-        //   })
-        // );
         setOpenModal(STATUS_LOGIN);
       } catch (error: any) {
         console.log(error);
@@ -104,23 +99,24 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
       };
       try {
         const res = await userService.loginUser(dataSubmit);
+        onSetStatus(true);
         toast.success("Đăng nhập thành công!");
         dispatch(
           loginUser({
             isLoggedIn: true,
             token: res.data.accessToken,
-            userInfo: res.data,
+            userInfo: res.data.userData,
           })
         );
         onClose();
-        window.location.reload();
+        // window.location.reload();
       } catch (error: any) {
         console.log(error);
         toast.error(`${error.response?.data.message}`);
       }
       setIsLoadingLogin(false);
     },
-    [onClose, dispatch]
+    [onClose, dispatch, onSetStatus]
   );
 
   const handleForgotPassword = useCallback(async () => {
@@ -144,7 +140,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
   const moveMouseLeave = () => {
     setTimeout(() => {
       onClose();
-    }, 10000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -159,10 +155,10 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({
 
   return (
     <div
-      // onMouseLeave={(e) => {
-      //   e.stopPropagation();
-      //   moveMouseLeave();
-      // }}
+      onMouseLeave={(e) => {
+        e.stopPropagation();
+        moveMouseLeave();
+      }}
       className="flex flex-col bg-stone-100 border border-mainColor justify-center py-6 z-30"
     >
       {!statusFindPassword ? (
